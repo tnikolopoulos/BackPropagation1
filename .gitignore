@@ -44,3 +44,13 @@ Temporary Items
 
 *.ncb
 BackPropagation.vcproj.THANOS-PC.THANOS.user
+*.exe
+*.manifest
+*.ilk
+*.obj
+*.pch
+*.pdb
+Debug/BuildLog.htm
+*.idb
+*.res
+*.dep
