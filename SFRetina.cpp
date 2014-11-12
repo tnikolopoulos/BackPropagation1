@@ -44,10 +44,10 @@ std::vector<float>& SFRetina::getOutput()
 		DIB_RGB_COLORS
 		);  
 
-	for ( UINT32 I = 0 ; I < Width * Width; I++ )
-	{
-		Output[I] = PBits[I].rgbBlue == 0 ? 1.f : 0.f;
-	}
+	for ( UINT32 Y = 0 ; Y < Width ; Y++ )
+		for ( UINT32 X = 0 ; X < Width ; X++ )
+			Output[ ( Width - 1 - Y ) * Width + X] = PBits[Y * Width + X].rgbBlue == 0 ? 1.f : 0.f;
+
 	return Output;
 }
 
@@ -75,3 +75,18 @@ void SFRetina::lineTo( int X , int Y)
 	LineTo( DrawDC , X , Y);
 }
 
+
+
+void SFRetina::blit( BYTE* Data , UINT32 Width , UINT32 Height , UINT32 SX , UINT32 SY )
+{
+	for ( UINT32 Y = 0 ; Y < Height ; Y++ )
+	{
+		for ( UINT32 X = 0; X < Width ; X++) 
+		{
+			const BYTE& I = Data[Y * Width + X ];
+
+			DWORD Col = I | (I << 8) | ( I << 16);
+			SetPixel( DrawDC , X + SX , Y + SY , Col);
+		}
+	}
+}

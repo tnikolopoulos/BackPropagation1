@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="windows-1253"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="BackPropagation"
 	ProjectGUID="{9D191A01-331F-4D61-995C-BA5E6EC6514C}"
 	RootNamespace="BackPropagation"
@@ -201,6 +201,14 @@
 		</File>
 		<File
 			RelativePath=".\SFLayer.h"
+			>
+		</File>
+		<File
+			RelativePath=".\SFMNISTLoader.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\SFMNISTLoader.h"
 			>
 		</File>
 		<File

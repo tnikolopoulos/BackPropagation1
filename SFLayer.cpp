@@ -50,7 +50,7 @@ std::vector<float>& SFLayer::propagateError( std::vector<float>& Error )
 		for ( UINT32 J = 0 ; J < Units[I].getDeltaWeights().size() ; J++ )
 		{
 			float Output = Units[I].getOutput();
-			Units[I].getDeltaWeights()[J] += 0.05f * Output * ( 1 - Output) *  Error[I] * LastInput->at(J);
+			Units[I].getDeltaWeights()[J] += 0.02f * Output * ( 1 - Output) *  Error[I] * LastInput->at(J);
 		}
 
 	for ( UINT32 J = 0 ; J < InputWidth * InputHeight ; J++ )

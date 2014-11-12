@@ -2,6 +2,7 @@
 
 #include "SFRetina.h"
 #include "SFShape.h"
+#include "SFMNISTLoader.h"
 
 class SFLayer;
 
@@ -28,6 +29,7 @@ public:
 
 private:
 	std::vector<SFLayer>	Layers;
+	SFMNISTLoader			MNISTLoader;
 	SFRetina				Retina;
 	SFShape					ShapeX ;
 	SFShape					ShapeTri;
@@ -35,4 +37,5 @@ private:
 	bool					Train;
 	bool					Learn;
 	UINT32					TrainCount;
+	UINT32					MNISTIndex;
 };

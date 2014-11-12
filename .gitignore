@@ -55,3 +55,6 @@ Debug/BuildLog.htm
 *.res
 *.dep
 *.htm
+*.idx3-ubyte
+*.idx1-ubyte
+BackPropagation.vcproj.AVENTURINE.thanasis.user

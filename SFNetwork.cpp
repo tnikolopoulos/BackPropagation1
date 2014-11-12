@@ -2,7 +2,7 @@
 #include "SFNetwork.h"
 #include "SFLayer.h"
  
-SFNetwork::SFNetwork(void) : PShape(NULL) , Train(false) ,Learn(false), TrainCount(0)
+SFNetwork::SFNetwork(void) : PShape(NULL) , Train(false) ,Learn(false), TrainCount(0) , MNISTIndex(0)
 {
 }
 
@@ -12,12 +12,15 @@ SFNetwork::~SFNetwork(void)
 
 void SFNetwork::initialize()
 {
+	MNISTLoader.load("data/train-images.idx3-ubyte");
+	MNISTLoader.loadLabels("data/train-labels.idx1-ubyte");
+
 	Retina.initialize(GetDesktopWindow() , 20);
 	Layers.resize(2);
 
-	Layers[0].initialize(6,1,Retina.getWidth() ,Retina.getWidth());
+	Layers[0].initialize(6,6,Retina.getWidth() ,Retina.getWidth());
 	//Layers[1].initialize(2,1,6,1);
-	Layers[1].initialize(20,20,6,1);
+	Layers[1].initialize(20,20,6,6);
 
 	ShapeX.addLine( 0,0,8,8);
 	ShapeX.addLine( 8,0,0,8);
@@ -49,14 +52,27 @@ void SFNetwork::run()
 		float Y = 20.f * (float)rand() / (float) RAND_MAX - 5 ;
 		//PShape->setRotation( (float)rand() / (float) RAND_MAX * 6.28);
 		PShape->setPos (X , Y);
+		
+		while( true ) 
+		{
+			MNISTIndex++;
+			if ( MNISTIndex >= MNISTLoader.getNumImages() )
+				MNISTIndex = 0;
+			unsigned char C = MNISTLoader.getLabel( MNISTIndex);
+			if ( C == 2 )
+				break;
+		}
 	}
+
 
 	HWND DesktopHandle = GetDesktopWindow();
 	HDC DesktopDC = GetDC(DesktopHandle);
 	HDC RetinaDC = Retina.startDraw(DesktopDC);
 	PatBlt(RetinaDC , 0 , 0, Retina.getWidth() , Retina.getWidth() , WHITENESS);
 	PShape->draw(RetinaDC);
+	Retina.blit( MNISTLoader.getImageData(MNISTIndex) , MNISTLoader.getWidth() , MNISTLoader.getHeight(),-4,-4);
 	std::vector<float>& Input = Retina.getOutput();
+
 	Retina.endDraw();
 	ReleaseDC(DesktopHandle,DesktopDC);
 
