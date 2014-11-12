@@ -13,13 +13,13 @@ void SFShape::draw(HDC dc)
 {
 	for ( UINT32 I = 0 ; I < Lines.size() ; I++)
 	{
-		float X1 = Lines[I].left;
-		float Y1 = Lines[I].top;
+		float X1 = (float) Lines[I].left;
+		float Y1 = (float) Lines[I].top;
 		transform( X1 , Y1);		
 		MoveToEx(dc , (DWORD)  X1 , (DWORD) Y1,NULL);
 		
-		float X2 = Lines[I].right;
-		float Y2 = Lines[I].bottom;
+		float X2 = (float) Lines[I].right;
+		float Y2 = (float) Lines[I].bottom;
 		transform( X2 , Y2);
 		LineTo( dc , (DWORD) X2 , (DWORD) Y2 );
 	}
